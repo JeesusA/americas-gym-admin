@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Sidebar from "./components/Sidebar";
+import Section from "./components/Section";
+import "./App.css"
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  // Estado para gestionar la sección activa
+  const [activeSection, setActiveSection] = useState("");
+
+  // Función para cambiar la sección activa
+  const handleSectionChange = (sectionId) => {
+    setActiveSection(sectionId);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="container">
+      <Sidebar onSectionSelect={handleSectionChange}/>
+      <main className="content">
+        {/* Mostrar solo la sección activa */}
+        {activeSection === "precios" && (<Section
+          id="precios"
+          title="Editar Precios de Membresías"
+          description="Aquí podrás agregar, editar o eliminar los precios de las membresías."
+          buttonText="Agregar nuevo precio"
+        />)}
 
-export default App
+        {activeSection === "promociones" && (<Section
+          id="promociones"
+          title="Editar Promociones"
+          description="Aquí podrás agregar, editar o eliminar las promociones disponibles."
+          buttonText="Agregar nueva promoción"
+        />)}
+        
+        {activeSection === "informacion-general" && (<Section
+          id="informacion-general"
+          title="Editar Información General"
+          description="Aquí podrás actualizar la información básica del gimnasio."
+          buttonText="Editar información"
+        />)}
+        
+        {activeSection === "sucursales" && (<Section
+          id="sucursales"
+          title="Editar Información de Sucursales"
+          description="Aquí podrás agregar, editar o eliminar sucursales."
+          buttonText="Agregar nueva sucursal"
+        />)}
+
+        {activeSection === "contacto" && (<Section
+          id="contacto"
+          title="Editar Información de Contacto"
+          description="Aquí podrás actualizar el correo, teléfono y redes sociales."
+          buttonText="Editar contacto"
+        />)}
+        
+      </main>
+    </div>
+  );
+};
+
+export default App;
