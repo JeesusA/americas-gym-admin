@@ -70,6 +70,51 @@ body {
   color: #fff;
 }
 
+/* Estilos para el "Panel de Edición" */
+.sidebar-toggle {
+  cursor: pointer;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #00bfa6;
+  transition: color 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  color: #008f7a;
+}
+
+/* Ocultar el menú inicialmente */
+.sidebar nav {
+  margin-top: 20px; 
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 15px;
+}
+
+.sidebar nav ul li button {
+  background: none;
+  border: none;
+  color: #1a1a1a;
+  font-size: 1.1em;
+  padding: 10px 5px;
+  border-radius: 5px;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s, color 0.3s ease;
+}
+
+.sidebar nav ul li button:hover {
+  background-color: #00bfa6;
+  color: #fff;
+}
+
 /* Área de contenido */
 .content {
   flex: 1;
