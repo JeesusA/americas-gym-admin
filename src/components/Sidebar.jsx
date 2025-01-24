@@ -1,38 +1,26 @@
 import React, { useState } from "react";
+import { use } from "react";
 
 const Sidebar = ({ onSectionSelect }) => {
 
-    // Estado para controlar la visiblidad del menú
-    const [menuVisible, setMenuVisible] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-    // Función para alternar la visibilidad del menú
-    const toggleMenu = () => {setMenuVisible(!menuVisible);}
 
     return (
     <aside className="sidebar">
-      {/* Botón del encabezado para desplegar el menú */}
-      <h2 onClick={toggleMenu} className="sidebar-toggle">Panel de Edición</h2>
-      
-      {/* Menú desplegable controlado por estado */}
-      {menuVisible && (<nav>
-        <ul>
-          <li>
-            <button onClick={() => onSectionSelect("precios")}>Precios de Membresías</button>
-          </li>
-          <li>
-            <button onClick={() => onSectionSelect("promociones")}>Promociones</button>
-          </li>
-          <li>
-            <button onClick={() => onSectionSelect("informacion-general")}>Informacion General</button>
-          </li>
-          <li>
-            <button onClick={() => onSectionSelect("sucursales")}>Sucursales</button>
-          </li>
-          <li>
-            <button onClick={() => onSectionSelect("contacto")}>Contacto</button>
-          </li>
-        </ul>
-      </nav>)}
+        <div className="sidebar_logo">AMERICA´S GYM</div>
+        <div className={`sidebar_items ${isOpen && "open"}`} onClick={ () => setIsOpen(!isOpen)}>
+            <a href="#precios" onClick={() => onSectionSelect("precios")}>Precios de Membresías</a>
+            <a href="#promociones" onClick={() => onSectionSelect("promociones")}>Promociones</a>
+            <a href="#informacion-general" onClick={() => onSectionSelect("informacion-general")}>Información General</a>
+            <a href="#sucursales" onClick={() => onSectionSelect("sucursales")}>Sucursales</a>
+            <a href="#contacto" onClick={() => onSectionSelect("contacto")}>Contacto</a>    
+        </div>
+        <div className={`sidebar_toggle ${isOpen && "open"}`} onClick={ () => setIsOpen(!isOpen)}>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </aside>
   );
 };
