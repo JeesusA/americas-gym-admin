@@ -46,6 +46,7 @@ body {
 section {
   margin-bottom: 0px;
   margin: 10px;
+  text-align: center;
 }
 
 section h1 {
@@ -75,6 +76,68 @@ button {
 button:hover {
   background-color: #008f7a;
 }
+
+/* Estilos para el modal */
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 9999;
+}
+
+.modal_content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.modal_content h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal_content label {
+  flex-direction: column;
+  display: block;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.modal_content input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal_content input:hover {
+  border: 1px solid #1a1a1a;
+}
+
+.modal_content button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00bfa6;
+  color: #fff;
+  cursor: pointer; 
+}
+
+.modal_content button:hover {
+  background-color: #008f7a;
+}
+
 
 /* Media Queries para Responsividad */  
 @media (max-width: 768px) {
