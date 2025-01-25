@@ -1,101 +1,556 @@
 // ModalForm.jsx
 import React, { useState } from "react";
 
+// const ModalForm = ({ isOpen, onClose, section }) => {
+//   const [formData, setFormData] = useState({}); // Estado para los datos del formulario
+//   const [nombre_membresia, setNombreMembresia] = useState("");
+//   const [precio_membresia, setPrecioMembresia] = useState("");
+//   const [nombre_promocion, setNombrePromocion] = useState("");
+//   const [descuento, setDescuento] = useState("");
+//   const [informacion, setInformacion] = useState("");
+//   const [nombre_sucursal, setNombreSucursal] = useState("");
+//   const [direccion_sucursal, setDireccionSucursal] = useState("");
+//   const [correo_electronico, setCorreoElectronico] = useState("");
+//   const [telefono, setTelefono] = useState("");
+//   const [redes_sociales, setRedSocial] = useState("");
+
+//   if (!isOpen) return null; // Si el modal no está abierto, no renderiza nada.
+
+
+//   const handleOnSubmitPrecios = async (e) => {
+//     e.preventDefault();
+//     console.log('enviando datos al backend');
+
+//     const nuevoPrecio = {
+//       nombre_membresia,
+//       precio_membresia
+//     }
+
+//     try {
+//       const response = await fetch('http://localhost:3001/api/precios', {
+//         method: 'POST',
+//         headers: {
+//           'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify(nuevoPrecio),
+//       });
+//       if (response.ok) {
+//         throw new error('Error al guardar los datos en la base de datos.');
+//       }
+
+//       const data = await response.json();
+//       alert('Precio guardado correctamente.');
+//       setNombreMembresia('');
+//       setPrecioMembresia('');
+//     } catch (error) {
+//       console.log('Error al guardar el nuevo precio!!');
+//     }
+
+//     onClose();
+//   }
+  
+//   const handleOnSubmitPromociones = async (e) => {
+//     e.preventDefault();
+//     console.log('enviando datos al backend');
+
+//     const nuevaPromocion = {
+//       nombre_promocion,
+//       descuento,
+//     }
+
+//     try {
+//       const response = await fetch('http://localhost:3001/api/promociones', {
+//         method: 'POST',
+//         headers: {
+//           'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify(nuevaPromocion),
+//       });
+//       if (response.ok) {
+//         throw new error('Error al guardar los datos en la base de datos.');
+//       }
+
+//       const data = await response.json();
+//       alert('Precio guardado correctamente.');
+//       setNombrePromocion('');
+//       setDescuento('');
+//     } catch (error) {
+//       console.log('Error al guardar el nuevo precio!!');
+//     }
+
+//     onClose();
+//   }
+
+//   const handleOnSubmitInfo = async (e) => {
+//     e.preventDefault();
+//     console.log('enviando datos al backend');
+
+//     const nuevaInfo = {
+//       informacion,
+//     }
+
+//     try {
+//       const response = await fetch('http://localhost:3001/api/informacion_general', {
+//         method: 'POST',
+//         headers: {
+//           'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify(nuevaInfo),
+//       });
+//       if (response.ok) {
+//         throw new error('Error al guardar los datos en la base de datos.');
+//       }
+
+//       const data = await response.json();
+//       alert('Precio guardado correctamente.');
+//       setInformacion('');
+//     } catch (error) {
+//       console.log('Error al guardar el nuevo precio!!');
+//     }
+
+//     onClose();
+//   }
+
+//   const handleOnSubmitSucursales = async (e) => {
+//     e.preventDefault();
+//     console.log('enviando datos al backend');
+
+//     const nuevaSucursal = {
+//       nombre_sucursal,
+//       direccion_sucursal
+//     }
+
+//     try {
+//       const response = await fetch('http://localhost:3001/api/sucursales', {
+//         method: 'POST',
+//         headers: {
+//           'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify(nuevaSucursal),
+//       });
+//       if (response.ok) {
+//         throw new error('Error al guardar los datos en la base de datos.');
+//       }
+
+//       const data = await response.json();
+//       alert('Precio guardado correctamente.');
+//       setNombreSucursal('');
+//       setDireccionSucursal('');
+//     } catch (error) {
+//       console.log('Error al guardar el nuevo precio!!');
+//     }
+
+//     onClose();
+//   }
+
+//   const handleOnSubmitContacto = async (e) => {
+//     e.preventDefault();
+//     console.log('enviando datos al backend');
+
+//     const nuevoContacto = {
+//       correo_electronico, 
+//       telefono, 
+//       redes_sociales, 
+//     }
+
+//     try {
+//       const response = await fetch('http://localhost:3001/api/contacto', {
+//         method: 'POST',
+//         headers: {
+//           'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify(nuevoContacto),
+//       });
+//       if (response.ok) {
+//         throw new error('Error al guardar los datos en la base de datos.');
+//       }
+
+//       const data = await response.json();
+//       alert('Precio guardado correctamente.');
+//       setCorreoElectronico('');
+//       setTelefono('');
+//       setRedSocial('');
+//     } catch (error) {
+//       console.log('Error al guardar el nuevo precio!!');
+//     }
+
+//     onClose();
+//   }
+
+//   return (
+//     <div className="modal">
+//       <div className="modal_content">
+//         <h2>Formulario</h2>
+//         {/* Campos dinámicos según la sección */}
+//         {section === "precios" && (
+//           <>
+//             <label>
+//               Nombre de Membresía:
+//               <input
+//                 id="nombre_membresia"
+//                 type="text"
+//                 value={nombre_membresia}
+//                 onChange={(e) => setNombreMembresia(e.target.value)}
+//                 required
+//               />
+//             </label>
+//             <label>
+//               Precio de Membresía:
+//               <input
+//                 id="precio_membresia"
+//                 type="number"
+//                 value={precio_membresia}
+//                 onChange={(e) => setPrecioMembresia(e.target.value)}
+//                 required
+//               />
+//             </label>
+
+//             <button onClick={handleOnSubmitPrecios}>Guardar</button>
+//             <button onClick={onClose}>Cancelar</button>
+//           </>
+//         )}
+//         {section === "promociones" && (
+//           <>
+//             <label>
+//               Título de Promoción:
+//               <input
+//                 id="nombre_promocion"
+//                 type="text"
+//                 value={nombre_promocion}
+//                 onChange={(e) => setNombrePromocion(e.target.value)}
+//                 required
+//               />
+//             </label>
+//             <label>
+//               Descuento:
+//               <input
+//                 id="descuento"
+//                 type="number"
+//                 value={descuento}
+//                 onChange={(e) => setDescuento(e.target.value)}
+//                 required
+//               />
+//             </label>
+//             <button onClick={handleOnSubmitPromociones}>Guardar</button>
+//             <button onClick={onClose}>Cancelar</button>
+//           </>
+//         )}
+
+//         {section === "informacion-general" && (
+//           <>
+//             <label>
+//               Información general:
+//               <br />
+//               <textarea 
+//               id="informacion" 
+//               value={informacion} 
+//               onChange={(e) => setInformacion(e.target.value)}
+//               required
+//               ></textarea>
+//             </label>
+//             <button onClick={handleOnSubmitInfo}>Guardar</button>
+//             <button onClick={onClose}>Cancelar</button>
+//           </>
+//         )}
+
+//         {section === "sucursales" && (
+//           <>
+//             <label>
+//               Nombre de sucursal:
+//               <input
+//                 id="nombre_sucursal"
+//                 type="text"
+//                 value={nombre_sucursal}
+//                 onChange={(e) => setNombreSucursal(e.target.value)}
+//                 required
+//               />
+//             </label>
+//             <label>
+//               Dirección de sucursal:
+//               <input 
+//               id="direccion_sucursal" 
+//               value={direccion_sucursal} 
+//               type="url" 
+//               onChange={(e) => setDireccionSucursal(e.target.value)} />
+//               required
+//             </label>
+//             <button onClick={handleOnSubmitSucursales}>Guardar</button>
+//             <button onClick={onClose}>Cancelar</button>
+//           </>
+//         )}
+
+//         {section === "contacto" && (
+//           <>
+//             <label>
+//               Correo electrónico:
+//               <input
+//                 id="correo_electronico"
+//                 type="email"
+//                 value={correo_electronico}
+//                 onChange={(e) => setCorreoElectronico(e.target.value)}
+//                 required
+//               />
+//             </label>
+//             <label>
+//               Telefóno:
+//               <input
+//                 id="telefono"
+//                 type="tel"
+//                 value={telefono}
+//                 onChange={(e) => setTelefono(e.target.value)}
+//                 required
+//               />
+//             </label>
+//             <label>
+//               Redes sociales:
+//               <input
+//                 id="redes_sociales"
+//                 type="text"
+//                 value={redes_sociales}
+//                 onChange={(e) => setRedSocial(e.target.value)}
+//                 required
+//               />
+//             </label>
+//             <button onClick={handleOnSubmitContacto}>Guardar</button>
+//             <button onClick={onClose}>Cancelar</button>
+//           </>
+//         )}
+
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ModalForm;
 const ModalForm = ({ isOpen, onClose, section }) => {
-  const [formData, setFormData] = useState({}); // Estado para los datos del formulario
+  const [formData, setFormData] = useState({
+    nombre_membresia: "",
+    precio_membresia: "",
+    nombre_promocion: "",
+    descuento: "",
+    informacion: "",
+    nombre_sucursal: "",
+    direccion_sucursal: "",
+    correo_electronico: "",
+    telefono: "",
+    redes_sociales: "",
+  });
 
-  if (!isOpen) return null; // Si el modal no está abierto, no renderiza nada.
+  if (!isOpen) return null;
 
-  // Manejar los cambios en el formulario
+  // Actualiza los campos del formulario dinámicamente
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { id, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [id]: value }));
   };
 
-  // Simular guardar los datos
-  const handleSave = () => {
-    console.log("Datos guardados:", formData);
-    onClose(); // Cerrar el modal después de guardar
+  // Función genérica para manejar el envío
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Enviando datos al backend");
+
+    let endpoint = "";
+    let data = {};
+
+    // Define el endpoint y los datos según la sección
+    switch (section) {
+      case "precios":
+        endpoint = "http://localhost:3001/api/precios";
+        data = {
+          nombre_membresia: formData.nombre_membresia,
+          precio_membresia: formData.precio_membresia,
+        };
+        break;
+      case "promociones":
+        endpoint = "http://localhost:3001/api/promociones";
+        data = {
+          nombre_promocion: formData.nombre_promocion,
+          descuento: formData.descuento,
+        };
+        break;
+      case "informacion-general":
+        endpoint = "http://localhost:3001/api/informacion_general";
+        data = { informacion: formData.informacion };
+        break;
+      case "sucursales":
+        endpoint = "http://localhost:3001/api/sucursales";
+        data = {
+          nombre_sucursal: formData.nombre_sucursal,
+          direccion_sucursal: formData.direccion_sucursal,
+        };
+        break;
+      case "contacto":
+        endpoint = "http://localhost:3001/api/contacto";
+        data = {
+          correo_electronico: formData.correo_electronico,
+          telefono: formData.telefono,
+          redes_sociales: formData.redes_sociales,
+        };
+        break;
+      default:
+        console.error("Sección desconocida:", section);
+        return;
+    }
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al guardar los datos en la base de datos.");
+      }
+
+      await response.json();
+      alert("Datos guardados correctamente.");
+      setFormData({}); // Limpia los campos del formulario
+    } catch (error) {
+      console.error("Error al guardar los datos:", error);
+    }
+
+    onClose();
   };
 
   return (
     <div className="modal">
       <div className="modal_content">
         <h2>Formulario</h2>
-        {/* Campos dinámicos según la sección */}
-        {section === "precios" && (
-          <>
-            <label>
-              Nombre de Membresía:
-              <input
-                type="text"
-                name="nombreMembresia"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Precio:
-              <input type="number" name="precio" onChange={handleChange} />
-            </label>
-          </>
-        )}
-        {section === "promociones" && (
-          <>
-            <label>
-              Título de Promoción:
-              <input type="text" name="tituloPromocion" onChange={handleChange} />
-            </label>
-            <label>
-              Descuento:
-              <input type="text" name="descuento" onChange={handleChange} />
-            </label>
-          </>
-        )}
-        
-        {section === "informacion-general" && (
-            <>
-                <label>
-                    Información general:
-                    <br />
-                    <textarea name="info" onChange={handleChange}></textarea>
-                </label>
-            </>
-        )}
 
-        {section === "sucursales" && (
+        {/* Renderizado dinámico de los campos según la sección */}
+        <form onSubmit={handleOnSubmit}>
+          {section === "precios" && (
             <>
-                <label>
-                    Nombre de sucursal:
-                    <input type="text" name="sucursal" onChange={handleChange} />
-                </label>
-                <label>
-                    Dirección de sucursal:
-                    <input type="url" name="direccion" onChange={handleChange} />
-                </label>
+              <label>
+                Nombre de Membresía:
+                <input
+                  id="nombre_membresia"
+                  type="text"
+                  value={formData.nombre_membresia}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Precio de Membresía:
+                <input
+                  id="precio_membresia"
+                  type="number"
+                  value={formData.precio_membresia}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
             </>
-        )}
+          )}
 
-        {section === "contacto" && (
+          {section === "promociones" && (
             <>
-                <label>
-                    Correo electrónico:
-                    <input type="email" name="correo" onChange={handleChange} />
-                </label>
-                <label>
-                    Telefóno:
-                    <input type="tel" name="telefono" onChange={handleChange} />
-                </label>
-                <label>
-                    Redes sociales:
-                    <input type="text" name="redes" onChange={handleChange} />
-                </label>
+              <label>
+                Título de Promoción:
+                <input
+                  id="nombre_promocion"
+                  type="text"
+                  value={formData.nombre_promocion}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Descuento:
+                <input
+                  id="descuento"
+                  type="number"
+                  value={formData.descuento}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
             </>
-        )}
+          )}
 
-        <button onClick={handleSave}>Guardar</button>
-        <button onClick={onClose}>Cancelar</button>
+          {section === "informacion-general" && (
+            <>
+              <label>
+                Información general:
+                <textarea
+                  id="informacion"
+                  value={formData.informacion}
+                  onChange={handleChange}
+                  required
+                ></textarea>
+              </label>
+            </>
+          )}
+
+          {section === "sucursales" && (
+            <>
+              <label>
+                Nombre de Sucursal:
+                <input
+                  id="nombre_sucursal"
+                  type="text"
+                  value={formData.nombre_sucursal}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Dirección de Sucursal:
+                <input
+                  id="direccion_sucursal"
+                  type="text"
+                  value={formData.direccion_sucursal}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </>
+          )}
+
+          {section === "contacto" && (
+            <>
+              <label>
+                Correo Electrónico:
+                <input
+                  id="correo_electronico"
+                  type="email"
+                  value={formData.correo_electronico}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Teléfono:
+                <input
+                  id="telefono"
+                  type="tel"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Redes Sociales:
+                <input
+                  id="redes_sociales"
+                  type="text"
+                  value={formData.redes_sociales}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </>
+          )}
+
+          <button type="submit">Guardar</button>
+          <button type="button" onClick={onClose}>
+            Cancelar
+          </button>
+        </form>
       </div>
     </div>
   );

@@ -1,0 +1,201 @@
+const express = require('express');
+const mysql = require('mysql');
+const cors = require('cors');
+
+const app = express();
+const PORT = 3001;
+app.use(cors());
+
+// Agregar esta linea para procesar los datos en formato json que llegan del frontend
+app.use(express.json());
+
+const DB = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'gestion-gym',
+})
+
+DB.connect((err) => {
+    if (err) {
+        throw err;
+    }
+    console.log('Conexión exitosa!!');
+});
+
+// Declarar rutas para obtener los datos de la DB y devolverlos al frontend
+app.get('/api/precios', (req, res) => {
+    const SQL_QUERY = 'SELECT * FROM precios';
+    DB.query(SQL_QUERY, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        res.json(result);
+    });
+});
+
+app.get('/api/promociones', (req, res) => {
+    const SQL_QUERY = 'SELECT * FROM promociones';
+    DB.query(SQL_QUERY, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        res.json(result);
+    });
+});
+
+app.get('/api/sucursales', (req, res) => {
+    const SQL_QUERY = 'SELECT * FROM sucursales';
+    DB.query(SQL_QUERY, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        res.json(result);
+    });
+});
+
+app.get('/api/informacion_general', (req, res) => {
+    const SQL_QUERY = 'SELECT * FROM informacion_general';
+    DB.query(SQL_QUERY, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        res.json(result);
+    });
+});
+
+app.get('/api/contacto', (req, res) => {
+    const SQL_QUERY = 'SELECT * FROM contacto';
+    DB.query(SQL_QUERY, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        res.json(result);
+    });
+});
+
+// Declarar las rutas para guardar los datos en la DB
+app.post('/api/precios', (req, res) => {
+    const { nombre_membresia, precio_membresia } = req.body;
+    // Hacemos un validacion basica
+    if (!nombre_membresia || !precio_membresia) {
+        return res.status(400).json({
+            error: 'Favor de llenar los campos'
+        });
+    }
+
+    const SQL_QUERY =
+        'insert into precios (nombre_membresia, precio_membresia) values (?, ?)';
+    DB.query(
+        SQL_QUERY,
+        [nombre_membresia, precio_membresia],
+        (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res
+                .status(201)
+                .json({ id: result.insertId, nombre_membresia, precio_membresia });
+        });
+});
+
+app.post('/api/promociones', (req, res) => {
+    const { nombre_promocion, descuento } = req.body;
+    // Hacemos un validacion basica
+    if (!nombre_promocion || !descuento) {
+        return res.status(400).json({
+            error: 'Favor de llenar los campos'
+        });
+    }
+
+    const SQL_QUERY =
+        'insert into promociones (nombre_promocion, descuento) values (?, ?)';
+    DB.query(
+        SQL_QUERY,
+        [nombre_promocion, descuento],
+        (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res
+                .status(201)
+                .json({ id: result.insertId, nombre_promocion, descuento });
+        });
+});
+
+app.post('/api/sucursales', (req, res) => {
+    const { nombre_sucursal, direccion_sucursal } = req.body;
+    // Hacemos un validacion basica
+    if (!nombre_sucursal || !direccion_sucursal) {
+        return res.status(400).json({
+            error: 'Favor de llenar los campos'
+        });
+    }
+
+    const SQL_QUERY =
+        'insert into sucursales (nombre_sucursal, direccion_sucursal) values (?, ?)';
+    DB.query(
+        SQL_QUERY,
+        [nombre_sucursal, direccion_sucursal],
+        (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res
+                .status(201)
+                .json({ id: result.insertId, nombre_sucursal, direccion_sucursal });
+        });
+});
+
+app.post('/api/informacion_general', (req, res) => {
+    const { informacion } = req.body;
+    // Hacemos un validacion basica
+    if (!informacion) {
+        return res.status(400).json({
+            error: 'Favor de llenar los campos'
+        });
+    }
+
+    const SQL_QUERY =
+        'insert into informacion_general (informacion) values (?)';
+    DB.query(
+        SQL_QUERY,
+        [informacion],
+        (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res
+                .status(201)
+                .json({ id: result.insertId, informacion });
+        });
+});
+
+app.post('/api/contacto', (req, res) => {
+    const { correo_electronico, telefono, redes_sociales } = req.body;
+    // Hacemos un validacion basica
+    if (!correo_electronico || !telefono || !redes_sociales) {
+        return res.status(400).json({
+            error: 'Favor de llenar los campos'
+        });
+    }
+
+    const SQL_QUERY =
+        'insert into contacto (correo_electronico, telefono, redes_sociales) values (?, ?, ?)';
+    DB.query(
+        SQL_QUERY,
+        [correo_electronico, telefono, redes_sociales],
+        (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res
+                .status(201)
+                .json({ id: result.insertId, correo_electronico, telefono, redes_sociales });
+        });
+});
+
+// Encendemos el servidor, escuchando en el servidor declarado anteriormente
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});
