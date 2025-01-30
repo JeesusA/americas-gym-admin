@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { use } from "react";
 
+// Maneja la seccion abierta
 const Sidebar = ({ onSectionSelect }) => {
 
+    // Maneja el estado de abierto/cerrado del sidebar para el uso del icono de hamburguesa en pantallas pequeñas
     const [isOpen, setIsOpen] = useState(false);
 
 

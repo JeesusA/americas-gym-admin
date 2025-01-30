@@ -9,26 +9,30 @@ app.use(cors());
 // Agregar esta linea para procesar los datos en formato json que llegan del frontend
 app.use(express.json());
 
-const DB = mysql.createConnection({
+// Mejor para entornos reales
+const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'gestion-gym',
 })
 
-DB.connect((err) => {
+// Verificar conexión
+pool.getConnection((err, connection) =>{
     if (err) {
-        throw err;
+        console.error('Error de conexion:', err);
+        return;
     }
-    console.log('Conexión exitosa!!');
+    console.log('Conexión exitosa a la base de datos!');
+    connection.release();
 });
 
-// Declarar rutas para obtener los datos de la DB y devolverlos al frontend
+// Rutas para obtener los datos de la DB y devolverlos al frontend
 app.get('/api/precios', (req, res) => {
     const SQL_QUERY = 'SELECT * FROM precios';
-    DB.query(SQL_QUERY, (err, result) => {
+    pool.query(SQL_QUERY, (err, result) => {
         if (err) {
-            throw err;
+            return res.status(500).json({ error: err.message});
         }
         res.json(result);
     });
@@ -36,9 +40,9 @@ app.get('/api/precios', (req, res) => {
 
 app.get('/api/promociones', (req, res) => {
     const SQL_QUERY = 'SELECT * FROM promociones';
-    DB.query(SQL_QUERY, (err, result) => {
+    pool.query(SQL_QUERY, (err, result) => {
         if (err) {
-            throw err;
+            return res.status(500).json({ error: err.message});
         }
         res.json(result);
     });
@@ -46,9 +50,9 @@ app.get('/api/promociones', (req, res) => {
 
 app.get('/api/sucursales', (req, res) => {
     const SQL_QUERY = 'SELECT * FROM sucursales';
-    DB.query(SQL_QUERY, (err, result) => {
+    pool.query(SQL_QUERY, (err, result) => {
         if (err) {
-            throw err;
+            return res.status(500).json({ error: err.message});
         }
         res.json(result);
     });
@@ -56,9 +60,9 @@ app.get('/api/sucursales', (req, res) => {
 
 app.get('/api/informacion_general', (req, res) => {
     const SQL_QUERY = 'SELECT * FROM informacion_general';
-    DB.query(SQL_QUERY, (err, result) => {
+    pool.query(SQL_QUERY, (err, result) => {
         if (err) {
-            throw err;
+            return res.status(500).json({ error: err.message});
         }
         res.json(result);
     });
@@ -66,9 +70,9 @@ app.get('/api/informacion_general', (req, res) => {
 
 app.get('/api/contacto', (req, res) => {
     const SQL_QUERY = 'SELECT * FROM contacto';
-    DB.query(SQL_QUERY, (err, result) => {
+    pool.query(SQL_QUERY, (err, result) => {
         if (err) {
-            throw err;
+            return res.status(500).json({ error: err.message});
         }
         res.json(result);
     });
@@ -86,7 +90,7 @@ app.post('/api/precios', (req, res) => {
 
     const SQL_QUERY =
         'insert into precios (nombre_membresia, precio_membresia) values (?, ?)';
-    DB.query(
+    pool.query(
         SQL_QUERY,
         [nombre_membresia, precio_membresia],
         (err, result) => {
@@ -110,7 +114,7 @@ app.post('/api/promociones', (req, res) => {
 
     const SQL_QUERY =
         'insert into promociones (nombre_promocion, descuento) values (?, ?)';
-    DB.query(
+    pool.query(
         SQL_QUERY,
         [nombre_promocion, descuento],
         (err, result) => {
@@ -134,7 +138,7 @@ app.post('/api/sucursales', (req, res) => {
 
     const SQL_QUERY =
         'insert into sucursales (nombre_sucursal, direccion_sucursal) values (?, ?)';
-    DB.query(
+    pool.query(
         SQL_QUERY,
         [nombre_sucursal, direccion_sucursal],
         (err, result) => {
@@ -158,7 +162,7 @@ app.post('/api/informacion_general', (req, res) => {
 
     const SQL_QUERY =
         'insert into informacion_general (informacion) values (?)';
-    DB.query(
+    pool.query(
         SQL_QUERY,
         [informacion],
         (err, result) => {
@@ -182,7 +186,7 @@ app.post('/api/contacto', (req, res) => {
 
     const SQL_QUERY =
         'insert into contacto (correo_electronico, telefono, redes_sociales) values (?, ?, ?)';
-    DB.query(
+    pool.query(
         SQL_QUERY,
         [correo_electronico, telefono, redes_sociales],
         (err, result) => {
