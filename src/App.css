@@ -290,6 +290,7 @@ button:hover {
 @media (max-width: 768px) {
   .sidebar_items {
     position: absolute;
+    display: block;
     top: 60px;
     left: 0;
     background: #008f7a;
