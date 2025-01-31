@@ -17,7 +17,7 @@ const Sidebar = ({ onSectionSelect }) => {
             <a href="#informacion-general" onClick={() => onSectionSelect("informacion-general")}>Información General</a>
             <a href="#sucursales" onClick={() => onSectionSelect("sucursales")}>Sucursales</a>
             <a href="#contacto" onClick={() => onSectionSelect("contacto")}>Contacto</a>    
-            <a href="#landing-page" className="landing" onClick={() => onSectionSelect("landing-page")}>Ver Landing Page</a>    
+            <a href="#landing-page" onClick={() => onSectionSelect("landing-page")}>Ver Landing Page</a>    
         </div>
         <div className={`sidebar_toggle ${isOpen && "open"}`} onClick={ () => setIsOpen(!isOpen)}>
             <span></span>
