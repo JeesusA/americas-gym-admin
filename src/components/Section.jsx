@@ -6,7 +6,7 @@ const Section = ({ id, title, description, buttonText, onButtonClick }) => {
     <section id={id}>
       <h1>{title}</h1>
       <p>{description}</p>
-      <button onClick={onButtonClick}>{buttonText}</button>
+      <button className="button-text" onClick={onButtonClick}>{buttonText}</button>
     </section>
   );
 };

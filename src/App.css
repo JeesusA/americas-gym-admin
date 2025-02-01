@@ -39,7 +39,7 @@ body {
 }
 
 .sidebar:hover {
-  background: #008f7a;
+  background-color: #008f7a;
 }
 
 .sidebar_logo {
@@ -114,7 +114,7 @@ section p {
 }
 
 /* Botones con efecto suave */
-button {
+.button-text {
   padding: 10px 20px;
   background-color: #00bfa6;
   color: #fff;
@@ -125,7 +125,7 @@ button {
   transition: transform 0.2s ease-in-out, background-color 0.3s ease;
 }
 
-button:hover {
+.button-text:hover {
   background-color: #008f7a;
   transform: scale(1.05);
 }
@@ -277,12 +277,123 @@ button:hover {
   margin-right: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #00bfa6;
+  background-color: #008f7a;
   color: #fff;
   cursor: pointer; 
 }
 
 .modal_content button:hover {
+  background-color: #008f7a;
+}
+
+/* Estilos para el botón de alternar tema */
+#theme-toggle {
+  top: 15px;
+  right: 20px;
+  padding: 8px 15px;
+  background-color: transparent;  
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+  background-color: #1a1a1a; /* Fondo oscuro */
+  color: #f5f5f5; /* Texto claro */
+}
+
+body.dark-mode .gyminfo {
+  background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+  color: #f5f5f5;
+}
+
+body.dark-mode .gym-title {
+  color: #00bfa6; /* Mantener el color del título */
+}
+
+body.dark-mode .section-title {
+  color: #f5f5f5;
+  border-bottom-color: #00bfa6; /* Mantener el color del borde */
+}
+
+body.dark-mode .price-card,
+body.dark-mode .promo-card,
+body.dark-mode .info-card,
+body.dark-mode .branch-card,
+body.dark-mode .contact-card {
+  background: #2c2c2c; /* Fondo oscuro para las tarjetas */
+  color: #f5f5f5;
+}
+
+body.dark-mode .membership-name,
+body.dark-mode .promo-name,
+body.dark-mode .info-text,
+body.dark-mode .branch-name,
+body.dark-mode .contact-mail {
+  color: #f5f5f5;
+}
+
+body.dark-mode .membership-price,
+body.dark-mode .promo-discount,
+body.dark-mode .branch-address,
+body.dark-mode .contact-tel {
+  color: #cccccc; /* Gris más claro para texto secundario */
+}
+
+body.dark-mode .modal_content {
+  background: #2c2c2c;
+  color: #f5f5f5;
+}
+
+body.dark-mode .modal_content input {
+  background: #1a1a1a;
+  color: #f5f5f5;
+  border-color: #555555;
+}
+
+body.dark-mode .modal_content input:hover {
+  border-color: #00bfa6;
+}
+
+body.dark-mode .modal_content button {
+  background-color: #00bfa6;
+  color: #1a1a1a;
+}
+
+body.dark-mode .modal_content button:hover {
+  background-color: #008f7a;
+}
+
+body.dark-mode .sidebar {
+  background: #008f7a; /* Cambiar el color del sidebar en modo oscuro */
+}
+
+body.dark-mode .sidebar:hover {
+  background-color: #004e43;
+}
+
+body.dark-mode .sidebar_items a {
+  color: #f5f5f5;
+}
+
+body.dark-mode .sidebar_items a:hover {
+  color: #00bfa6;
+}
+
+body.dark-mode .sidebar_items a::after {
+  background: #00bfa6;
+}
+
+body.dark-mode .button-text {
+  background-color: #00bfa6;
+  color: #1a1a1a;
+}
+
+body.dark-mode .button-text:hover {
   background-color: #008f7a;
 }
 
