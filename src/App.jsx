@@ -29,7 +29,7 @@ const App = () => {
         <Section
           id="precios"
           title="Editar Precios de Membresías"
-          description="Aquí podrás agregar, editar o eliminar los precios de las membresías."
+          description="Aquí podrás agregar los precios de las membresías."
           buttonText="Agregar nuevo precio"
           onButtonClick={handleOpenModal}
         />
@@ -38,7 +38,7 @@ const App = () => {
         <Section
           id="promociones"
           title="Editar Promociones"
-          description="Aquí podrás agregar, editar o eliminar las promociones disponibles."
+          description="Aquí podrás agregar las promociones disponibles."
           buttonText="Agregar nueva promoción"
           onButtonClick={handleOpenModal}
         />
@@ -47,7 +47,7 @@ const App = () => {
         <Section
           id="informacion-general"
           title="Editar Información General"
-          description="Aquí podrás actualizar la información básica del gimnasio."
+          description="Aquí podrás agregar la información básica del gimnasio."
           buttonText="Editar información"
           onButtonClick={handleOpenModal}
         />
@@ -56,7 +56,7 @@ const App = () => {
         <Section
           id="sucursales"
           title="Editar Información de Sucursales"
-          description="Aquí podrás agregar, editar o eliminar sucursales."
+          description="Aquí podrás agregar sucursales."
           buttonText="Agregar nueva sucursal"
           onButtonClick={handleOpenModal}
         />
@@ -65,7 +65,7 @@ const App = () => {
         <Section
           id="contacto"
           title="Editar Información de Contacto"
-          description="Aquí podrás actualizar el correo, teléfono y redes sociales."
+          description="Aquí podrás agregar el correo, teléfono y redes sociales."
           buttonText="Editar contacto"
           onButtonClick={handleOpenModal}
         />
