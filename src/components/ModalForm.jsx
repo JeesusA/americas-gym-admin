@@ -1,8 +1,10 @@
-
 import React, { useState } from "react";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:3001"); // Conectar con el servidor de notificaciones
 
 const ModalForm = ({ isOpen, onClose, section }) => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     nombre_membresia: "",
     precio_membresia: "",
     nombre_promocion: "",
@@ -13,14 +15,16 @@ const ModalForm = ({ isOpen, onClose, section }) => {
     correo_electronico: "",
     telefono: "",
     redes_sociales: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   if (!isOpen) return null;
 
   // Actualiza los campos del formulario dinámicamente
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevState) => ({ ...prevState, [id]: value }));
+    setFormData((prevState) => ({ ...prevState, [id]: value || "",}));
   };
 
   // Función genérica para manejar el envío
@@ -30,6 +34,7 @@ const ModalForm = ({ isOpen, onClose, section }) => {
 
     let endpoint = "";
     let data = {};
+    let successMessage = "✅ Datos guardados correctamente.";
 
     // Define el endpoint y los datos según la sección
     switch (section) {
@@ -46,6 +51,7 @@ const ModalForm = ({ isOpen, onClose, section }) => {
           nombre_promocion: formData.nombre_promocion,
           descuento: formData.descuento,
         };
+        successMessage = "✅ Promoción añadida con éxito.";
         break;
       case "informacion-general":
         endpoint = "http://localhost:3001/api/informacion_general";
@@ -84,8 +90,10 @@ const ModalForm = ({ isOpen, onClose, section }) => {
         throw new Error("Error al guardar los datos en la base de datos.");
       }
 
-      await response.json();
-      alert("Datos guardados correctamente.");
+      socket.emit("enviarNotificacion", {
+        message: successMessage,
+      });
+
       setFormData({}); // Limpia los campos del formulario
     } catch (error) {
       console.error("Error al guardar los datos:", error);

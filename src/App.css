@@ -114,7 +114,7 @@ section p {
 }
 
 /* Botones con efecto suave */
-.button-text {
+.button-agregar, .button-actualizar {
   padding: 10px 20px;
   background-color: #00bfa6;
   color: #fff;
@@ -123,11 +123,30 @@ section p {
   font-size: 1em;
   cursor: pointer;
   transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-.button-text:hover {
+.button-agregar:hover, 
+.button-actualizar:hover {
   background-color: #008f7a;
   transform: scale(1.05);
+}
+
+.buttons-container {
+  width: 20%;
+  margin: 20px auto;
+  padding: 15px;
+  background: #f9f9f9; /* Fondo claro */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.buttons-container:hover {
+  transform: scale(1.02);
 }
 
 /* Gym info */
@@ -286,6 +305,204 @@ section p {
   background-color: #008f7a;
 }
 
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.notification-item {
+  padding: 10px;
+  background: #00bfa6;
+  color: white;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+/* ====== ESTILOS PARA PromotionsTable ====== */
+
+/* Contenedor principal */
+#promotions-container {
+  width: 40%;
+  margin: 20px auto;
+  padding: 15px;
+  background: #f9f9f9; /* Fondo claro */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+}
+
+#promotions-container:hover {
+  transform: scale(1.02);
+}
+
+/* Título */
+#promotions-title {
+  color: #00bfa6;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+/* Botón regresar */
+#promotions-back-button {
+  padding: 10px 15px;
+  background-color: #008f7a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 15px;
+}
+
+#promotions-back-button:hover {
+  background-color: #006b5e;
+}
+
+/* Lista de promociones */
+#promotions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Elementos individuales de la lista */
+.promotion-item {
+  background: white;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.promotion-item:hover {
+  transform: scale(1.02);
+}
+
+/* Texto de la promoción */
+.promotion-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Botones de acción */
+.promotion-edit-button,
+.promotion-delete-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  margin-left: 10px;
+}
+
+.promotion-edit-button:hover,
+.promotion-delete-button:hover {
+  transform: scale(1.05);
+}
+
+/* Botón Editar */
+.promotion-edit-button {
+  background-color: #ffc107;
+  color: white;
+}
+
+.promotion-edit-button:hover {
+  background-color: #e0a800;
+}
+
+/* Botón Eliminar */
+.promotion-delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.promotion-delete-button:hover {
+  background-color: #c82333;
+}
+
+/* ====== ESTILOS PARA PromotionsTable ====== */
+
+/* Inputs en la edición en línea */
+.promotion-text input {
+  width: 80px;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+/* Botón Guardar */
+.promotion-save-button {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  margin-left: 10px;
+}
+
+.promotion-save-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+
+.discount-title {
+  font-size: 2em;
+  color:#04131f;
+  text-align: center;
+}
+
+.card-discount {
+  text-align: center;
+  justify-content: center;
+  width: 200px;
+  height: 100px auto;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border: 2px solid #04131f;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px;
+}
+
+.promo-code {
+  font-weight: bold;
+  padding: 20px 40px;        /* Espaciado */
+  border-radius: 10px;       /* Bordes redondeados */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra */
+  text-transform: uppercase; /* Todo en mayúsculas */
+  letter-spacing: 3px;       /* Espaciado entre letras */
+  border: 2px solid #008f7a; /* Borde rojo */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.promo-code:hover {
+  transform: scale(1.06);       /* Aumenta el tamaño cuando pasa el mouse */
+  cursor: pointer;            /* Cambia el cursor */
+}
 /* Estilos para el botón de alternar tema */
 #theme-toggle {
   top: 15px;
