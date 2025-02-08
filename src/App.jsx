@@ -1,20 +1,39 @@
 import React, { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { ToastContainer, toast } from "react-toastify"; // Importar React Toastify
+import "react-toastify/dist/ReactToastify.css"; // Importar estilos de las notificaciones
 import Sidebar from "./components/Sidebar";
 import Section from "./components/Section";
 import ModalForm from "./components/ModalForm";
-import LandingPage from "./components/LandingPage"
+import LandingPage from "./components/LandingPage";
+import PromotionsTable from "./components/PromotionsTable";
 import "./App.css";
+
+const socket = io("http://localhost:3001");
 
 const App = () => {
 
   const [activeSection, setActiveSection] = useState(""); // Estado para gestionar la sección activa
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
-  
+  const [showPromotionsTable, setShowPromotionsTable] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+
   // Función para cambiar la sección activa
   const handleSectionChange = (sectionId) => {
     setActiveSection(sectionId);
   };
 
+  useEffect(() => {
+    socket.on("notificacion", (data) => {
+        console.log("🔔 Notificación recibida en frontend:", data.message);
+        toast.success(data.message, { autoClose:3000 }); // Mostrar notificacion pop-up
+    });
+
+    return () => {
+        socket.off("notificacion");
+    };
+  }, []);
+  
   // Abrir el modal
   const handleOpenModal = () => { setIsModalOpen(true); };
 
@@ -24,6 +43,10 @@ const App = () => {
   return (
     <div className="container">
       <Sidebar onSectionSelect={handleSectionChange} />
+
+      {/* Componente que muestra las notificaciones pop-up */}
+      <ToastContainer position="top-right" autoClose={3000}/>
+
       {/* Mostrar solo la sección activa */}
       {activeSection === "precios" && (
         <Section
@@ -34,15 +57,18 @@ const App = () => {
           onButtonClick={handleOpenModal}
         />
       )}
-      {activeSection === "promociones" && (
+      {activeSection === "promociones" && !showPromotionsTable ? (
         <Section
           id="promociones"
           title="Editar Promociones"
-          description="Aquí podrás agregar las promociones disponibles."
+          description="Aquí podrás agregar y actualizar las promociones disponibles."
           buttonText="Agregar nueva promoción"
           onButtonClick={handleOpenModal}
+          extraButtons={[{ text: "Actualizar", onClick: () => setShowPromotionsTable(true) }]} // NUEVO
         />
-      )}
+      ) : activeSection === "promociones" && showPromotionsTable ? (
+        <PromotionsTable onClose={() => setShowPromotionsTable(false)} />
+      ) : null}
       {activeSection === "informacion-general" && (
         <Section
           id="informacion-general"
@@ -73,7 +99,7 @@ const App = () => {
 
       {activeSection === "landing-page" && <LandingPage></LandingPage>}
 
-      {/* Modal Formulario*/}
+      {/* Modal Formulario */}
       <ModalForm
         isOpen={isModalOpen}
         onClose={handleCloseModal}

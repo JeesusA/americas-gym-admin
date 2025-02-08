@@ -1,17 +1,28 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const http = require("http");
+const { initSocket, sendNotification } = require("./routes/notifications");
 
 const app = express();
+const server = http.createServer(app); // Crear servidor HTTP
 const PORT = 3001;
-app.use(cors());
 
-// Agregar esta linea para procesar los datos en formato json que llegan del frontend
-app.use(express.json());
+app.use(cors());
+app.use(express.json()); // Agregar esta linea para procesar los datos en formato json que llegan del frontend
+
+const discountCodeRouter = require("./routes/discountCode");
+const promotionsRouter = require('./routes/promotions');
+
+app.use("/api/discount-code", discountCodeRouter);
+app.use("/api/promociones", promotionsRouter);
+
+// Iniciar socket.io
+initSocket(server);
 
 // Mejor para entornos reales
 const pool = mysql.createPool({
-    host: 'localhost',
+    host: 'host.docker.internal',
     user: 'root',
     password: '',
     database: 'gestion-gym',
@@ -25,6 +36,11 @@ pool.getConnection((err, connection) =>{
     }
     console.log('Conexión exitosa a la base de datos!');
     connection.release();
+});
+
+// Servidor escuchando en el puerto 3001
+server.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
 
 // Rutas para obtener los datos de la DB y devolverlos al frontend
@@ -197,9 +213,4 @@ app.post('/api/contacto', (req, res) => {
                 .status(201)
                 .json({ id: result.insertId, correo_electronico, telefono, redes_sociales });
         });
-});
-
-// Encendemos el servidor, escuchando en el servidor declarado anteriormente
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

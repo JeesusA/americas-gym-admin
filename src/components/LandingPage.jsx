@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Discount from "./Discount";
 
 // Componente funcional que representa la página principal de información del gimnasio
 const LandingPage = (onGoBack) => {
@@ -107,6 +108,7 @@ const LandingPage = (onGoBack) => {
     // Retornar el contenido del componente
     return (
         <div className="gyminfo">
+            <Discount/>
             <h1 className="gym-title">AMERICA'S GYM</h1>
 
             {/* Sección de información general */}

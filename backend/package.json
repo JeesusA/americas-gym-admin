@@ -2,7 +2,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "socket.io": "^4.8.1",
+    "uuid": "^11.0.5"
   },
   "name": "backend",
   "version": "1.0.0",
